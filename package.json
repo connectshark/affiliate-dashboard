@@ -1,8 +1,8 @@
 {
-  "name": "vue-tailwind-template",
+  "name": "affiliate-dashboard",
   "repository": {
     "type": "git",
-    "url": "https://github.com/connectshark/vue-tailwind-template"
+    "url": "https://github.com/connectshark/affiliate-dashboard"
   },
   "license": "MIT",
   "version": "0.1.0",
@@ -26,6 +26,7 @@
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "unplugin-vue-router": "^0.8.5",
-    "vite": "^5.2.7"
+    "vite": "^5.2.8",
+    "vite-plugin-vue-devtools": "^7.0.25"
   }
 }

@@ -1,7 +1,7 @@
-# vue-tailwind-template
-[![build status](https://github.com/connectshark/vue-tailwind-template/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/connectshark/vue-tailwind-template/actions/workflows/deploy.yml)
-[![GitHub last commit](https://img.shields.io/github/last-commit/connectshark/vue-tailwind-template.svg?style=flat)](https://github.com/connectshark/vue-tailwind-template)
-![GitHub stars](https://img.shields.io/github/stars/connectshark/vue-tailwind-template.svg?style=social&label=Stars&style=plastic)
+# affiliate-dashboard
+[![build status](https://github.com/connectshark/affiliate-dashboard/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/connectshark/affiliate-dashboard/actions/workflows/deploy.yml)
+[![GitHub last commit](https://img.shields.io/github/last-commit/connectshark/affiliate-dashboard.svg?style=flat)](https://github.com/connectshark/affiliate-dashboard)
+![GitHub stars](https://img.shields.io/github/stars/connectshark/affiliate-dashboard.svg?style=social&label=Stars&style=plastic)
 
 
 ![https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
