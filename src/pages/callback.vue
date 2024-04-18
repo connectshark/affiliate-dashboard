@@ -19,5 +19,5 @@ const store = useUserStore()
 store.token = route.query.access_token || ''
 
 const router = useRouter()
-router.replace('/')
+router.replace('/home')
 </script>

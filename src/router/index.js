@@ -6,10 +6,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL)
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
   const store = useUserStore()
-  const paths = ['/login', '/callback']
-  if (!paths.includes(to.path) && !store.token) return { path: '/login' }
+  const paths = ['/', '/callback']
+  if (!paths.includes(to.path) && !store.token) return { path: '/' }
   return true
 })
 
