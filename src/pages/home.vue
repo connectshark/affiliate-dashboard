@@ -60,6 +60,33 @@
     </div>
   </div>
 </section>
+
+<section class="mb-6">
+  <h2 class=" font-bold text-2xl/loose">自訂連結</h2>
+  <form class=" max-w-96 mx-auto w-5/6 p-5 rounded-xl shadow bg-white" @submit.prevent="submitHandler">
+    <div class="mb-2 flex items-center justify-start">
+      <label class="shrink-0 pr-4" for="offer_id">廠商</label>
+      <input v-model="offerID" required class=" focus-within:ring-primary w-full appearance-none ring ring-primary/30 rounded-xl py-2 px-4 outline-none" id="offer_id" type="text" list="offer">
+    </div>
+    <div class="mb-2 flex items-center justify-start">
+      <label class="shrink-0 pr-4" for="offer_link">連結</label>
+      <input v-model="link" required class=" focus-within:ring-primary w-full appearance-none ring ring-primary/30 rounded-xl py-2 px-4 outline-none" id="offer_link" type="url">
+    </div>
+    <div class="mb-2">
+      <button type="submit" class=" bg-primary text-white py-2 px-3 rounded-3xl hover:opacity-80">送出</button>
+      <i v-if="shortLoading" class='bx bx-loader bx-spin bx-sm' ></i>
+    </div>
+    <div v-if="shortResult">
+      <p v-for="link in shortResult.data">
+        <input type="text" :value="link.deeplink_url" readonly class=" text-xs select-text rounded-lg p-3 w-full appearance-none outline-none ring-2 read-only:bg-gray-300 ">
+      </p>
+    </div>
+  </form>
+  <datalist id="offer">
+    <option v-for="offer in offers" :value="offer.id">{{ offers.id }} {{ offer.name }}</option>
+  </datalist>
+</section>
+
 </DefaultLayout>
 </template>
 
@@ -67,8 +94,7 @@
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import useFetch from '../composables/useFetch'
 import useTime from '../composables/useTime'
-import { computed, ref } from 'vue'
-const API_DOMAIN = import.meta.env.VITE_API_URI
+import { computed, ref, watchEffect } from 'vue'
 
 const nowDate = useTime(new Date())
 const searchDay = ref(useTime(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)))
@@ -89,17 +115,49 @@ const totalMoney = computed(() => {
   }
 })
 
-const conversionURL = computed(() => API_DOMAIN + `/one/conversions?start_at=${ searchDay.value }&end_at=${ nowDate }`)
 const {
   loading: conversionsLoading,
   data: conversions,
-  error: conversionsError
-} = useFetch(conversionURL)
+  error: conversionsError,
+  doFetch: conversionsFetch
+} = useFetch(`/one/conversions`)
 
-const statURL = computed(() => API_DOMAIN + `/one/stat?start_at=${ searchDay.value }&end_at=${ nowDate }`)
 const {
   loading: statLoading,
   data: stats,
-  error: statsError
-} = useFetch(statURL)
+  error: statsError,
+  doFetch: statsFetch
+} = useFetch(`/one/stat`)
+
+const {
+  doFetch: shortLink,
+  data: shortResult,
+  loading: shortLoading
+} = useFetch(`/one/link`)
+
+const link = ref('')
+const offerID = ref(1809)
+const submitHandler = async () => {
+  await shortLink({ method: 'POST', body: { link: link.value, offerId: offerID.value } })
+  link.value = ''
+}
+
+watchEffect(() => {
+  conversionsFetch({
+    queries: `start_at=${ searchDay.value }&end_at=${ nowDate }`
+  })
+  statsFetch({
+    queries: `start_at=${ searchDay.value }&end_at=${ nowDate }`
+  })
+})
+
+const offers = [
+  { id: 1115, name: '聯盟網' },
+  { id: 5968, name: 'Agoda' },
+  { id: 2169, name: 'Booking' },
+  { id: 5080, name: 'Domain.com' },
+  { id: 4734, name: 'KFC肯德基' },
+  { id: 1809, name: 'KKday' },
+  { id: 2328, name: 'KLOOK' }
+]
 </script>
