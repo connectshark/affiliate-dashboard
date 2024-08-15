@@ -5,11 +5,11 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        primary: 'rgb(var(--color-primary) / <alpha-value>)'
-      }
-    },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui')
+  ],
+  daisyui: {
+    themes: ["synthwave", "cupcake"],
+  }
 }

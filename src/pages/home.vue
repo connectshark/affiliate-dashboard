@@ -1,9 +1,9 @@
 <template>
 <DefaultLayout>
 <div>
-  <button @click="rangeDay(1)" class="bg-primary text-white rounded-md px-2 py-1 mr-2" type="button">今天</button>
-  <button @click="rangeDay(7)" class="bg-primary text-white rounded-md px-2 py-1 mr-2" type="button">7天</button>
-  <button @click="rangeDay(30)" class="bg-primary text-white rounded-md px-2 py-1" type="button">1個月</button>
+  <button @click="rangeDay(1)" class="btn-outline btn-neutral btn mr-2" type="button">今天</button>
+  <button @click="rangeDay(7)" class="btn-outline btn-neutral btn mr-2" type="button">7天</button>
+  <button @click="rangeDay(30)" class="btn-outline btn-neutral btn" type="button">1個月</button>
 </div>
 <div>
   <p>{{ searchDay }} - {{ nowDate }}</p>
@@ -13,22 +13,24 @@
   <p v-if="statLoading">loading...<i class='bx bx-loader bx-spin' ></i></p>
   <p v-else-if="statsError"><i class='bx bx-error bx-md'></i> <span>{{ statsError.msg }}</span></p>
   <div v-else class=" grid grid-cols-4">
-    <div class=" text-center">
-      <p class=" bg-slate-200">點擊次數</p>
-      <p>{{ stats.data.stat_total.clicks.toLocaleString() }}</p>
-    </div>
-    <div class=" text-center">
-      <p class=" bg-slate-200">總訂單數</p>
-      <p>{{ stats.data.stat_total.captured }}</p>
-    </div>
-    <div class=" text-center">
-      <p class=" bg-slate-200">訂單審核中</p>
-      <p>{{ stats.data.stat_total.total_pending_conversions }}</p>
-    </div>
-    <div class=" text-center">
-      <p class=" bg-slate-200">訂單否決</p>
-      <p>{{ stats.data.stat_total.total_rejected_conversions }}</p>
-    </div>
+    <table class="table table-zebra">
+      <thead>
+        <tr>
+          <th class=" text-center bg-base-300">點擊次數</th>
+          <th class="text-center bg-base-300">總訂單數</th>
+          <th class="text-center bg-base-300">訂單審核中</th>
+          <th class="text-center bg-base-300">訂單否決</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-center">{{ stats.data.stat_total.clicks.toLocaleString() }}</td>
+          <td class="text-center">{{ stats.data.stat_total.captured }}</td>
+          <td class="text-center">{{ stats.data.stat_total.total_pending_conversions }}</td>
+          <td class="text-center">{{ stats.data.stat_total.total_rejected_conversions }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 <section class="mb-4">
@@ -38,25 +40,25 @@
   <p v-else-if="conversionsError"><i class='bx bx-error bx-md'></i> <span>{{ conversionsError.msg }}</span></p>
     <div v-else>
       <p v-if="conversions.data_count === 0">無交易明細</p>
-      <table v-else class=" table-fixed w-full">
+      <table v-else class="table table-zebra caption-bottom">
         <thead>
           <tr class=" text-left">
-            <th>平台</th>
-            <th>點擊時間</th>
-            <th>成效獎金</th>
-            <th>獎金狀態</th>
+            <th class=" text-lg">平台</th>
+            <th class=" text-lg">點擊時間</th>
+            <th class=" text-lg">成效獎金</th>
+            <th class=" text-lg">獎金狀態</th>
           </tr>
         </thead>
         <tbody class="text-xs">
-          <tr class="text-slate-600" v-for="conversion in conversions.data.transactions" :key="conversion.id">
-            <td class="px-2 py-1">{{ conversion.offer_name }}</td>
+          <tr v-for="conversion in conversions.data.transactions" :key="conversion.id">
+            <td>{{ conversion.offer_name }}</td>
             <td>{{ useTime(new Date(conversion.click_time)) }}</td>
             <td>${{ conversion.commission.toLocaleString() }}</td>
             <td>{{ conversion.status }}</td>
           </tr>
         </tbody>
+        <caption class=" text-xl text-right pt-8">總金額:<i class='bx bx-dollar'></i>{{ parseFloat(totalMoney).toLocaleString() }}</caption>
       </table>
-      <p>總金額:<i class='bx bx-dollar'></i>{{ totalMoney }}</p>
     </div>
   </div>
 </section>
