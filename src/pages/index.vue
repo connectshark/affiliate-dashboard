@@ -1,20 +1,22 @@
 <template>
-<FullLayout>
-  <div class=" text-center bg-white p-5">
-    <div class="mb-4">
-      <router-link to="/">
-        <img class="w-8 inline-block" src="../assets/logo.png" alt="logo">
-      </router-link>
+  <FullLayout>
+    <div class="bg-white p-8 rounded-2xl shadow-lg max-w-sm w-full text-center">
+      <div class="mb-6">
+        <router-link to="/">
+          <img class="w-12 inline-block" src="../assets/logo.png" alt="logo">
+        </router-link>
+      </div>
+      <h1 class="text-3xl font-bold mb-4 text-gray-800">歡迎回來</h1>
+      <p class="text-gray-600 mb-8">使用您的 Google 帳號快速登入</p>
+      <a class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 inline-flex items-center gap-2" :href="url">
+        <i class='bx bxl-google text-xl'></i>
+        <span>使用 Google 帳號登入</span>
+      </a>
+      <p v-if="store.token" class="mt-8">
+        <router-link class="text-sm text-gray-500 hover:text-gray-700 underline" to="/home">前往儀表板</router-link>
+      </p>
     </div>
-    <h1 class="text-2xl/loose mb-8 font-bold">登入</h1>
-    <p class="mb-8">
-      <a class="bg-white px-4 py-2 rounded-lg shadow hover:shadow-xl transition-shadow" :href="url"><i class='bx bxl-google'></i>使用Google帳號登入</a>
-    </p>
-    <p v-if="store.token">
-      <router-link class=" underline text-sm" to="/home">面板</router-link>
-    </p>
-  </div>
-</FullLayout>
+  </FullLayout>
 </template>
   
 <script setup>
