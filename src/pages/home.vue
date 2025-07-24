@@ -103,7 +103,7 @@
             </tr>
           </tbody>
         </table>
-        <p class="text-right mt-4 font-bold text-lg">總金額: ${{ parseFloat(totalMoney).toLocaleString() }}</p>
+        <p class="text-right mt-4 font-bold text-lg">總金額: ${{ totalMoney.toLocaleString() }}</p>
       </div>
     </div>
   </div>
@@ -130,7 +130,7 @@
     </form>
     <div v-if="shortResult" class="mt-6">
       <label class="block mb-2 text-sm font-medium text-gray-900">產生的連結</label>
-      <div v-for="link in shortResult.data" class="relative">
+      <div v-for="link in shortResult.data" :key="link.deeplink_url" class="relative">
         <input type="text" :value="link.deeplink_url" readonly class="col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10">
       </div>
     </div>
